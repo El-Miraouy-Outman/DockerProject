@@ -1,0 +1,45 @@
+
+.container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.container-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+/*mat-row :hover {
+  cursor: pointer;
+
+}*/
+mat-column-lastName {
+
+}
+.mat-mdc-row {
+
+}
+.mat-mdc-header-row {
+  background: #f3f3f3;
+}
+
+.mat-column-id {
+  border-right: 1.5px solid currentColor;
+  text-align: center;
+}
+
+
+.spinner-container {
+  display: flex;
+  padding-top: 40px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+}

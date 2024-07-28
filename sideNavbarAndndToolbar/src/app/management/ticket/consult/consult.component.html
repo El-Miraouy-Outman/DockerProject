@@ -1,0 +1,203 @@
+<mat-card >
+  <mat-card-header>
+    <mat-card-title *ngIf="!isAdd">Inforamtions de Ticket :</mat-card-title>
+    <mat-card-title *ngIf="isAdd">Créer Ticket :</mat-card-title>
+  </mat-card-header>
+  <div class="active-update">
+    <button  *ngIf="!updateIsActive && !isAdd" class="active-update-btn" mat-button  (click)="activeUpdate()" [disabled]="false" >Activer La Modification</button>
+  </div>
+  <mat-card-content>
+    <form [formGroup]="form" class="content-stepper">
+      <div class="form">
+        <div class="form-left">
+          <div class="div-field">
+            <label class="title"><strong> Titre : </strong> </label>
+            <mat-form-field appearance="outline" >
+              <input matInput placeholder="Entrer le nom du ticket" formControlName="subject"   required>
+              <mat-error *ngIf="form.controls['subject'].hasError('required')">
+                Titre est <strong>Obligatoire</strong>
+              </mat-error>
+            </mat-form-field >
+          </div>
+          <div *ngIf="!isAdd"  class="div-field">
+            <label   class="support"><strong> Support : </strong> </label>
+            <mat-form-field appearance="outline" >
+              <input matInput placeholder="..." formControlName="createUserName"  required>
+            </mat-form-field >
+          </div>
+
+          <div class="div-field">
+            <label class="priority"> <strong>Priorité :  </strong></label>
+            <mat-form-field appearance="outline" >
+              <mat-select formControlName="priority"  >
+                <mat-option *ngFor="let priority of priorities" [style.color]="getColors(priority.key)" [value]="priority.key">{{priority.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div *ngIf="!isAdd" class="div-field">
+            <label class="status"> <strong>Status :  </strong></label>
+            <mat-form-field appearance="outline" >
+              <mat-select formControlName="status"  >
+                <mat-option   *ngFor="let status of status" [style.color]="getColors(status.key)" [value]="status.key">{{status.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="!isAdd" class="div-field">
+            <label class="creationDate"> <strong>Date création :  </strong></label>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="creationDate" placeholder="Date debut ."
+                     [matDatepicker]="dateCreation"
+              >
+              <mat-datepicker-toggle matSuffix [for]="dateCreation">
+              </mat-datepicker-toggle>
+              <mat-datepicker #dateCreation>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="description">
+            <label class="description"><strong>Description :   </strong></label>
+            <mat-form-field class="div-field-description" appearance="outline">
+        <textarea matInput placeholder="Ajouter votre description içi..." formControlName="description"
+                  cdkTextareaAutosize [cdkAutosizeMaxRows]="7" [cdkAutosizeMinRows]="7" ></textarea>
+            </mat-form-field >
+          </div>
+
+        </div>
+
+        <div class="form-right">
+
+          <div class="div-field">
+            <label class="affected"> <strong>Affecter :  </strong></label>
+            <mat-form-field appearance="outline" >
+              <mat-select formControlName="associateUserName" placeholder="Affecter a un support" >
+                <mat-option  >None</mat-option>
+                <mat-optgroup label="Support Technique :">
+                  <mat-option *ngFor="let user of supportsTechnic" [value]="user.email" >{{user.firstName+" "+user.lastName}}</mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Support Fonctionnel :">
+                  <mat-option *ngFor="let user of supportsFunctional" [value]="user.email" >{{user.firstName+" "+user.lastName}}</mat-option>
+                </mat-optgroup>
+
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="!isAdd" class="div-field">
+            <label class="closingDate"> <strong>Date Fermeture :  </strong></label>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="closingDate" placeholder="DD/MM/YYYY"
+                     [matDatepicker]="releasedAtPicker">
+              <mat-datepicker-toggle matSuffix [for]="releasedAtPicker">
+              </mat-datepicker-toggle>
+              <mat-datepicker #releasedAtPicker>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="div-field">
+            <label class="client"><strong> Client : </strong> </label>
+            <mat-form-field appearance="outline">
+              <input  matInput placeholder="Entrer email ou num du client"  formControlName="client" required (blur)="getCustomer()">
+              <mat-error *ngIf="form.controls['client'].hasError('required')">
+                Email ou Numéro du client est <strong>Obligatoire</strong>
+              </mat-error>
+            </mat-form-field >
+          </div>
+          <div class="div-field">
+            <label class="house"> <strong>Maison :  </strong></label>
+            <mat-form-field appearance="outline" >
+              <mat-select formControlName="house" placeholder="selectionner la maison du client" (selectionChange)="getTypeDevice($event.value)">
+                <mat-option *ngIf="isAdd" >None</mat-option>
+                <mat-option [value]="house" *ngFor="let house of houses" >{{house}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <label class="device"> <strong> Type de device : </strong></label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Entrer votre prénom" formControlName="typeDevice" required>
+            </mat-form-field >
+          </div>
+          <div *ngIf="!isAdd" class="div-field">
+            <label class="solution"><strong> Solution finale : </strong> </label>
+            <mat-form-field class="div-field-description" appearance="outline">
+               <textarea matInput placeholder="" formControlName="finalSolution"
+                         cdkTextareaAutosize [cdkAutosizeMaxRows]="7" [cdkAutosizeMinRows]="7" >
+               </textarea>
+            </mat-form-field >
+          </div>
+        </div>
+      </div>
+    </form>
+    <mat-card-actions>
+      <div class="btn-grp-add-ticket">
+        <div >
+          <button  *ngIf="updateIsActive" class="mat-button-add-ticket" mat-button  [disabled]="false" >Modifier</button>
+          <button  *ngIf="isAdd" class="mat-button-add-ticket" mat-button  (click)="addTicket()" [disabled]="false" >Ajouter</button>
+        </div>
+      </div>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="!isAdd" class="mat-comment" >
+    <mat-card-header class="mat-comment-header">
+      <mat-card-title>Les commentaires :
+        <button mat-mini-fab color="primary" (click)="addComment()" style="margin-left: 40px;width: 35px;height: 35px">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-card-title>
+    </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="comments.length>0;else noComments">
+      <div *ngFor="let comment of comments" class="mat-comment-all" >
+        <div class="mat-comment-all-content">
+          <img src="assets/flags/user_image{{comment.userImageUrl}}.jpeg" alt="user" class="comment-user-avatar">&nbsp;
+          <div class="comment-user-name"> <strong>{{comment.userName}}</strong></div>
+          <div class="text-date">
+            <div class="mat-comment-all-content-text">
+              <p>
+                {{comment.text}}
+              </p>
+            </div>
+            <!--<div class="mat-comment-all-content-date">
+              <p>
+                {{comment.dateCreation | date}}
+              </p>
+            </div>-->
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-footer>
+    <div class="content-resolution">
+      <div class="text-resolution">
+        <mat-form-field class="field-text" appearance="outline" >
+                <textarea class="text" matInput
+                          cdkTextareaAutosize [cdkAutosizeMaxRows]="7"
+                          [cdkAutosizeMinRows]="2" [(ngModel)]="finalSolution">
+        </textarea>
+        </mat-form-field>
+      </div>
+      <div class="div-btn-resolution">
+        <button class="mat-button-resolution" mat-button (click)="resolution()">Résolue</button>
+      </div>
+    </div>
+  </mat-card-footer>
+
+</mat-card>
+<ng-template #noComments>
+  <strong>Aucun Commentaire pour cette ticket .</strong>
+</ng-template>
+<ng-toast  [style] =" {width:'300px'} " > </ng-toast>
+

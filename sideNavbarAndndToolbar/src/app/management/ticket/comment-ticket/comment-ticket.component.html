@@ -1,0 +1,47 @@
+
+<mat-card class = "comment-edit-card">
+  <mat-card-title class="comment-edit-title">
+    <p>Ajouter un commentaire au ticket : {{form.controls.ticketId.value}} </p>
+    <button class="close-btn" mat-icon-button matTooltip="Close" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-title>
+  <form class="comment-form" [formGroup]="form">
+    <mat-card-content>
+      <div class="comment-content">
+        <div  class="div-field">
+          <mat-form-field appearance="outline" class="form-fields">
+            <mat-label>utilisateur à taquer</mat-label>
+            <mat-select formControlName="userNotifiedId" placeholder="selectinner utilisateur" multiple>
+              <mat-optgroup label="Support Technique :">
+                <mat-option *ngFor="let user of supportsTechnic" [value]="user.email" >{{user.firstName+" "+user.lastName}}</mat-option>
+              </mat-optgroup>
+              <mat-optgroup label="Support Fonctionnel :">
+                <mat-option *ngFor="let user of supportsFunctional" [value]="user.email" >{{user.firstName+" "+user.lastName}}</mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="description">
+          <mat-form-field class="form-fields" appearance="outline">
+            <mat-label>Contenu :</mat-label>
+            <textarea matInput  formControlName="text"
+                      cdkTextareaAutosize [cdkAutosizeMaxRows]="7"
+                      [cdkAutosizeMinRows]="7">
+        </textarea>
+
+            <mat-error *ngIf="form.controls['text'].hasError('required')">
+              Description est <strong>Obligatoire</strong>
+            </mat-error>
+          </mat-form-field >
+        </div>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions class="card-actions">
+      <button mat-raised-button class="add-comment" (click)="addComment()">Ajouter</button>
+    </mat-card-actions>
+  </form>
+</mat-card>
+<ng-toast  [style] =" {width:'300px'} " > </ng-toast>

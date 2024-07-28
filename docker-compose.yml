@@ -1,0 +1,64 @@
+services:
+
+  postgres_office :
+    container_name: postgres_office
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=dbtest'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=miraouy'
+    ports:
+      - '5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  backend-office:
+    build: backOffice-backEnd
+    container_name: backend-office
+    ports:
+      - '9898:9898'
+
+    expose:
+      - '9898'
+
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:9898/actuator/health"]
+      interval: 10s
+      retries: 3
+    depends_on:
+      - postgres_office
+    environment:
+      - 'POSTGRES_HOST=postgres_office'
+      - 'POSTGRES_PORT=5432'
+      - 'POSTGRES_DB=dbtest'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=miraouy'
+
+  front-end:
+    build: ./sideNavbarAndndToolbar
+    container_name: front-end
+    ports:
+      - '8080:80'
+    expose:
+      - '80'
+
+
+#  pgadmin:
+#    image: 'dpage/pgadmin4:latest'
+#    container_name: pgadmin_container
+#    environment:
+#      - 'PGADMIN_DEFAULT_EMAIL=miraouy@gmail.com'
+#      - 'PGADMIN_DEFAULT_PASSWORD=1111'
+#      - 'POSTGRES_DB=dbtest'
+#      - 'POSTGRES_USER=postgres'
+#      - 'POSTGRES_PASSWORD=miraouy'
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    ports:
+#      - '5050:80'
+
+
+
+volumes:
+  postgres_data:

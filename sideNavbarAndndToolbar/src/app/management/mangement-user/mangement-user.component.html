@@ -1,0 +1,115 @@
+<div class="container">
+
+
+  <div class="container-head">
+    <div class="container-content-left">
+      <mat-form-field appearance="outline" class="filter" >
+        <mat-label><mat-icon>filter_list</mat-icon> Filtre</mat-label>
+        <input matInput  (keyup)="applyFilter($event)"  >
+      </mat-form-field>
+
+
+    </div>
+    <div class="container-content-left">
+      <button mat-flat-button color="primary" (click)="add()">Ajouter</button>
+    </div>
+
+  </div>
+  <div>
+    <mat-tab-group>
+      <mat-tab label="Tous">
+        <div>
+
+          <mat-table  class="mat-elevation-z8"
+                      [dataSource]="dataSource"
+                      matSort matSortDisableClear matSortActive="id" matSortDirection="desc" >
+
+            <ng-container matColumnDef="id" >
+              <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+              <mat-cell *matCellDef="let user">{{user.id}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName" >
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Prénom</mat-header-cell>
+              <mat-cell *matCellDef="let user">{{user.firstName}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName" >
+              <mat-header-cell *matHeaderCellDef>Nom</mat-header-cell>
+              <mat-cell *matCellDef="let  user">{{user.lastName}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="email" >
+              <mat-header-cell *matHeaderCellDef >Email</mat-header-cell>
+              <mat-cell *matCellDef="let  user">{{user.email}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="telephone" >
+              <mat-header-cell *matHeaderCellDef>Telephone</mat-header-cell>
+              <mat-cell *matCellDef="let  user">{{user.telephone}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="address" >
+              <mat-header-cell *matHeaderCellDef>Addresse</mat-header-cell>
+              <mat-cell *matCellDef="let  user">{{user.address}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="ville" >
+              <mat-header-cell *matHeaderCellDef>Ville</mat-header-cell>
+              <mat-cell *matCellDef="let  user">{{user.ville}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef >Action</mat-header-cell>
+              <mat-cell *matCellDef="let user">
+                <button mat-icon-button class="fa fa-eye"
+                        (click)="update(user)"
+                        matTooltip="Voir" color="primary" matTooltipPosition="above"  >
+
+                </button>
+                <button mat-icon-button
+                        (click)="update(user)"
+                        matTooltip="modifier" color="primary" matTooltipPosition="above"  >
+                  <mat-icon>edit</mat-icon>
+
+                </button>
+
+                <button mat-icon-button  color="warn"
+                        (click)="delete(user)"
+                        matTooltip="supprimer" matTooltipPosition="above"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+
+              </mat-cell>
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+            <mat-row *matRowDef="let user;columns:displayColumns" ></mat-row>
+
+          </mat-table>
+          <div class="spinner-container" *ngIf="loading">
+            <mat-spinner></mat-spinner>
+          </div>
+          <mat-paginator  class="mat-elevation-z8"
+                         [length]="users.length"
+                         [pageSize]="3"
+                         [pageSizeOptions]="[3,5,10]"
+          ></mat-paginator>
+
+        </div>
+      </mat-tab>
+      <mat-tab label="En Attente">
+
+      </mat-tab>
+      <mat-tab label="Accepter">
+
+      </mat-tab>
+
+      <mat-tab label="Refuser">
+
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+</div>
+<ng-toast  [style] =" {width:'300px'} " > </ng-toast>

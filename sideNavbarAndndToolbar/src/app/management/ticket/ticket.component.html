@@ -1,0 +1,97 @@
+  <div class="container-head">
+    <div class="container-content-right">
+      <mat-form-field  appearance="outline" class="filter" >
+        <mat-label><mat-icon>filter_list</mat-icon> Filtre</mat-label>
+        <input matInput  (keyup)="applyFilter($event)"  >
+      </mat-form-field>
+
+    </div>
+    <div class="container-content-left">
+      <button mat-flat-button color="primary" (click)="add()">Ajouter</button>
+    </div>
+  </div>
+  <div>
+    <div>
+          <mat-table  class="users mat-elevation-z8$"
+                      [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="id" >
+              <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+              <mat-cell *matCellDef="let ticket">{{ticket.id}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="subject" >
+              <mat-header-cell *matHeaderCellDef>Sujet</mat-header-cell>
+              <mat-cell *matCellDef="let ticket">{{ticket.subject}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="updateUserName" >
+              <mat-header-cell *matHeaderCellDef>updateUserName</mat-header-cell>
+              <mat-cell *matCellDef="let ticket">{{ticket.updateUserName}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="status" >
+              <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+              <mat-cell [ngClass]="getColors(ticket.status)" *matCellDef="let ticket" >
+                <p [style.color]="getColors(ticket.status)" >{{ticket.status}}</p>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="priority" >
+              <mat-header-cell *matHeaderCellDef>priority</mat-header-cell>
+              <mat-cell *matCellDef="let  ticket">
+                <p [style.color]="getColors(ticket.priority)" >{{ticket.priority}}</p>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="creationDate" >
+              <mat-header-cell *matHeaderCellDef >creationDate</mat-header-cell>
+              <mat-cell *matCellDef="let  ticket">{{ticket.creationDate | date}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="closureDate" >
+              <mat-header-cell *matHeaderCellDef>closureDate</mat-header-cell>
+              <mat-cell *matCellDef="let  ticket">{{ticket.closureDate | date}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="customerName" >
+              <mat-header-cell *matHeaderCellDef>customerName</mat-header-cell>
+              <mat-cell *matCellDef="let  ticket">{{ticket.customerName}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="updateDate" >
+              <mat-header-cell *matHeaderCellDef>updateDate</mat-header-cell>
+              <mat-cell *matCellDef="let  ticket">{{ticket.updateDate | date}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef >Action</mat-header-cell>
+              <mat-cell *matCellDef="let ticket">
+                <button mat-icon-button class="fa fa-eye"
+                        (click)="viewTicket(ticket)"
+                        matTooltip="Detail" color="primary" matTooltipPosition="above"  >
+
+                </button>
+                <button mat-icon-button
+                        (click)="updateTicket(ticket)"
+                        matTooltip="modifier" color="primary" matTooltipPosition="above"  >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button  color="warn"
+                        (click)="deleteTicket(ticket.id)"
+                        matTooltip="supprimer" matTooltipPosition="above"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+            <mat-row *matRowDef="let ticket;columns:displayColumns" ></mat-row>
+          </mat-table>
+          <div class="spinner-container" *ngIf="loading">
+            <mat-spinner></mat-spinner>
+          </div>
+    </div>
+        <mat-paginator  class="mat-elevation-z8"  style="background-color: #f5f5f5;"
+                        [length]="tickets.length"
+                        [pageSize]="3"
+                        [pageSizeOptions]="[3,5,10]"
+        ></mat-paginator>
+  </div>
+
+

@@ -1,0 +1,276 @@
+
+.content-stepper-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    .div-field {
+      gap: 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+    }
+
+
+  }
+.active-update{
+  margin-top: 10px;
+  background-color: cornsilk;
+  .active-update-btn{
+    font-family: Arial, serif;
+    font-style: italic;
+  }
+
+}
+  .form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    //margin-left: 6%;
+    .form-right{
+      align-items: flex-start;
+
+      .closingDate{
+        padding-right: 17px;
+      }
+      .client{
+        padding-right: 80px;
+      }
+      .house{
+        padding-right: 70px;
+      }
+      .device{
+        padding-right: 20px;
+      }
+
+      .affected{
+        padding-right: 63px;
+      }
+      .solution{
+        padding-right: 23px;
+       }
+      //.description {
+      //  display: flex;
+      //  flex-direction: row;
+      //  justify-content: space-between;
+      //  .description-label{
+      //    padding-right: 100px;
+      //    margin-left: 500px;
+      //    text-align: center;
+      //  }
+      //}
+    }
+    .form-left{
+      margin-right:45px ;
+      align-items: flex-start;
+
+      .title{
+        padding-right: 60px;
+      }
+      .support{
+        padding-right: 40px;
+      }
+
+      .status{
+        padding-right: 50px;
+
+      }
+      .priority{
+        padding-right: 45px;
+      }
+      .description{
+        padding-right: 15px;
+      }
+      .creationDate{
+        padding-right: 5px;
+      }
+
+    }
+}
+.title-center {
+  margin-top: 10px;
+  display: flex;
+}
+.title{
+  flex: 1;
+  text-align: center;
+}
+.validation-step {
+  margin-top: 40px;
+
+}
+.input {
+  width: 60px;
+}
+mat-form-field {
+  width: 350px;
+}
+
+
+.mat-mdc-card-header {
+  background-color: #ba672f;
+  border-radius: 5px;
+
+}
+.mat-comment-header{
+  margin-bottom: 10px;
+}
+.mat-comment{
+  margin-top: 10px;
+
+     .mat-comment-all{
+       display: flex;
+       flex-direction: column;
+       justify-content: space-between;
+       .mat-comment-all-content {
+
+         display: flex;
+         //justify-content: space-between;
+         flex-direction: row;
+         margin-top: 5px;
+         gap: 10px;
+         border: solid 1px #ccc;
+         border-radius: 4px;
+         cursor: pointer;
+         .comment-user-avatar {
+           margin-left: 10px;
+           width: 40px;
+           height: 40px;
+           border-radius: 20px;
+           box-shadow: 0 0 15px rgb(35 35 35 / 15%);
+           cursor: pointer;
+           margin-top: 4px;
+
+         }
+         .comment-user-name{
+           padding-top: 7px;
+           width: 150px;
+           align-content: start;
+         }
+         .text-date{
+           display: flex;
+           flex-direction: row;
+           justify-content: space-between;
+           .mat-comment-all-content-text{
+             padding-right: 20px;
+             //width: 300px;
+           }
+           .mat-comment-all-content-date{
+             width: 15%;
+             order: 1;
+             align-content: end;
+           }
+         }
+       }
+
+     }
+
+}
+.btn-grp{
+  padding-right: 15px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  .mat-button-next {
+    background-color:  #ba672f;
+    width: 150px;
+    border-radius: 37px;
+  }
+
+}
+
+.btn-grp-add-ticket{
+  //padding-right: 15px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  //margin-right: 20px;
+  .mat-button-add-ticket {
+    background-color:  #ba672f;
+    width: 150px;
+    border-radius: 37px;
+    color: #ffffff;
+  }
+
+}
+.uuid-not-valid {
+  margin-bottom: 20px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width : 300px;
+  color: #FF3528;
+  border-radius: 7px;
+  align-content: center;
+  background-color: #F2ECEC;
+
+  .p-uuid {
+    padding-top: 10px;
+  }
+}
+
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.custom-input {
+  width: 60%;
+}
+.content-resolution{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-left: 20px;
+  .text-resolution{
+    width: 80%;
+    .field-text{
+      width: 100%;
+
+      .text{
+        width: 100%;
+      }
+    }
+  }
+  .div-btn-resolution{
+    width: 20%;
+    padding-right: 15px;
+    display: flex;
+    align-items: end;
+
+    margin-bottom: 35px;
+    flex-direction: row-reverse;
+    .mat-button-resolution {
+      background-color:  #ba672f;
+      width: 150px;
+      border-radius: 37px;
+      color: #ffffff;
+
+    }
+  }
+}
+
+.mdc-card__actions {
+  flex-direction: row-reverse;
+}
+.red{
+  color: red;
+
+}
+.yellow{
+  color: #f59607;
+}
+.green{
+  color: green;
+}

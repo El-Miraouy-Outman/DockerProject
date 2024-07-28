@@ -1,0 +1,50 @@
+
+.container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.container-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .container-content-right{
+    width: 70%;
+    .filter{
+      width: 50%;
+    }
+  }
+}
+
+.mat-column-id {
+  width: 5px;
+}
+/*mat-row :hover {
+  cursor: pointer;
+
+}*/
+mat-column-lastName {
+
+}
+.mat-mdc-row {
+
+}
+.mat-mdc-header-row {
+  background: #f3f3f3;
+}
+.spinner-container {
+  display: flex;
+  padding-top: 40px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+.red{
+  color: red;
+}
+.yellow{
+  color: #f59607;
+}
+.green{
+  color: #ba672f;
+}
